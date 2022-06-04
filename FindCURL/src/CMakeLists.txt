@@ -1,0 +1,13 @@
+ADD_EXECUTABLE(curltest main.cpp)
+
+INCLUDE_DIRECTORIES(/usr/include)
+TARGET_LINK_LIBRARIES(curltest curl)
+
+# 查找CURL 模块
+FIND_PACKAGE(CURL)
+IF(CURL_FOUND) # 判断 CURL 模声是否找到
+ INCLUDE_DIRECTORIES(${CURL_INCLUDE_DIR}) # 把找到的模块加入到 include 路径中
+ TARGET_LINK_LIBRARIES(curltest ${CURL_LIBRARY})
+ELSE(CURL_FOUND)
+MESSAGE(FATAL_ERROR ”CURL library not found”)  # 如果没有找到就报错
+ENDIF(CURL_FOUND)
